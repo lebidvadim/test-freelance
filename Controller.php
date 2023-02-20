@@ -8,7 +8,7 @@ class Controller{
         $this->apiProjects();
     }
     /* Получаем проекты из БД */
-    public function getProjects(){
+    public function getProjects():array{
         if(!isset($_GET['skill']))
             $projects = $this->db()->query("SELECT * FROM projects")->fetch_all(MYSQLI_ASSOC);
         else {
@@ -57,7 +57,7 @@ class Controller{
         return ['projects' => $projects, 'pie_chart' => $pie_chart];
     }
     /* Получаем скилы проектов для вывода ссылок для фильтрации из БД */
-    public function getSkills(){
+    public function getSkills():array{
         $projects_skills = $this->db()->query("SELECT ps.id_skill as id, s.name as name FROM projects_skills as ps 
             LEFT JOIN skills as s ON s.id = ps.id_skill 
             GROUP BY ps.id_skill")->fetch_all(MYSQLI_ASSOC);
@@ -65,7 +65,7 @@ class Controller{
     }
 }
 trait Api{
-    public function db(){
+    public function db():object{
         return new mysqli('db', 'root', 'root', 'mvp');
     }
     /* Получаем проекты и записуем к нам в БД */
@@ -102,7 +102,7 @@ trait Api{
         }
     }
     /* Получаем Скилы и записуем к нам в БД */
-    public function apiSkills(){
+    public function apiSkills():bool{
         $result = $this->apiConnect('https://api.freelancehunt.com/v2/skills');
         if(array_key_exists('data', $result)) {
             foreach ($result['data'] as $item) {
