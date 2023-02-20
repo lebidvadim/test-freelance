@@ -41,7 +41,6 @@
             </div>
             <?php endif;?>
         </div>
-        <script src="public/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script type="application/javascript">
             const ctx = document.getElementById('myChart');
